@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
 import java.util.ArrayList;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,11 +42,18 @@ public class MainActivity extends AppCompatActivity {
                 CheckBox thriller = (CheckBox)findViewById(R.id.Thriller);
                 CheckBox western = (CheckBox)findViewById(R.id.Western);
                 Connection dbConnection = new Connection();
-                ArrayList <String> actors = dbConnection.getActors(action.isChecked(), adventure.isChecked(), animation.isChecked(),
+                String[]  actors = dbConnection.getActors(action.isChecked(), adventure.isChecked(), animation.isChecked(),
                         comedy.isChecked(), crime.isChecked(), documentary.isChecked(), drama.isChecked(),
                         family.isChecked(), fantasy.isChecked(), horror.isChecked(), music.isChecked(), mistery.isChecked(),
                         romance.isChecked(), scifi.isChecked(), thriller.isChecked(), western.isChecked());
-                setContentView(R.layout.keywords);
+                setContentView(R.layout.actors);
+                ArrayAdapter <String> = new ArrayAdapter<String>
+                        (this,android.R.layout.select_dialog_item,actors);
+                AutoCompleteTextView actv= (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView1);
+                actv.setThreshold(1);//will start working from first character
+                actv.setAdapter(actors);//setting the adapter data into the AutoCompleteTextView
+                actv.setTextColor(Color.RED);
+
 
 
             }
